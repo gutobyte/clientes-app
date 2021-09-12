@@ -1,5 +1,8 @@
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ClientesService } from './../../clientes.service';
 import { Cliente } from './../cliente';
 import { Component, OnInit } from '@angular/core';
+import { param } from 'jquery';
 
 @Component({
   selector: 'app-clientes-form',
@@ -8,11 +11,69 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientesFormComponent implements OnInit {
 
-  cliente? : Cliente;
+  cliente : Cliente;
+  success : boolean =false;
+  errors? : String[] | null;
+  id? : any;
 
-  constructor() { }
+  constructor( private service : ClientesService, private router: Router, private activatedRoute : ActivatedRoute ) { 
+    
+    this.cliente= new Cliente();
+  }
 
   ngOnInit(): void {
+
+    let params = this.activatedRoute.params;
+    params.forEach( value =>{
+     if(value.id){
+       this.id = value.id;
+       this.service
+       .getClienteById(this.id)
+       .subscribe(
+         response => this.cliente = response,
+         errorResponse => this.cliente = new Cliente()
+       )
+     }
+   });
+    
+  }
+
+  onSubmit(){
+    if(this.id){
+      this.service
+      .atualizar(this.cliente)
+      .subscribe( response => {
+        console.log( response);
+        this.success=true;
+        this.errors = null;
+      }, errorResponse => {
+        this.errors = errorResponse.error.errors;
+      })
+
+    }else{
+       this.service
+      .salvar(this.cliente)
+      .subscribe( response => {
+        console.log( response);
+        this.success=true;
+        this.errors = null;
+        this.cliente=response;
+        
+              
+      }, errorResponse => {
+        this.success=false;
+        this.errors = errorResponse.error.errors;
+        console.log(errorResponse.error.errors);
+      }
+      )
+    }
+
+   
+  }
+
+  voltarParaListagem(){
+
+    this.router.navigate(['/clientes-lista']);
   }
 
 }
