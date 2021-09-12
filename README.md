@@ -1,5 +1,16 @@
 # ClientesApp
 
+Uma simples aplicação web (CRUD) que cadastra clientes, este projeto é apenas o front-end, utilizando angular-cli versão 12.1.1 e typescript versão 4.3.5. O template: bootstrap.
+
+É necessário ter node.js instalado, depois apenas utilizar ng `build` e `ng s`
+
+## Backend
+
+O back-end foi feito em Java com springboot, utilziando jpa-data, lombok e um banco em memoria h2, nele se utiliza as validações de Cpf. ELe se encontra neste repositório:
+
+https://github.com/gutobyte/cadastro-cliente
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
 
 ## Development server
