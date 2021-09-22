@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
 import { ServicoPrestadoService } from './servico-prestado.service';
 import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.module';
@@ -30,6 +31,7 @@ import { LayoutComponent } from './layout/layout.component';
     ServicoPrestadoModule
   ],
   providers: [
+    AuthService,
     ClientesService,
     ServicoPrestadoService
   ],
