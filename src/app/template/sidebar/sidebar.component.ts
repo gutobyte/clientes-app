@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../../auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+
+  usuarioLogado? : string;
+
+  constructor( private autheService : AuthService, private router : Router) { }
 
   ngOnInit(): void {
+
+    this.usuarioLogado = this.autheService.getUsuarioAutenticado();
+  }
+
+  logout(){
+    this.autheService.encerrarSessao();
+    this.router.navigate(['/login'])
+
   }
 
 }

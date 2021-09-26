@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Cliente } from './clientes/cliente';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class ClientesService {
   constructor(private http: HttpClient) { }
 
   salvar(cliente : Cliente) : Observable<Cliente> {
+
+    
       return this.http.post<Cliente>(`${this.apiURL}`, cliente);
   }
 
@@ -26,6 +29,8 @@ export class ClientesService {
   }
 
   getClientes() : Observable<Cliente[]> {
+    
+    
     return this.http.get<Cliente[]>(this.apiURL);
   }
 
